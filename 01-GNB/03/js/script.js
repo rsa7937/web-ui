@@ -36,7 +36,7 @@ $(function () {
 
   // 마우스 휠을 조작할 때
   $window.on('wheel', function (e) {
-    // console.log(e);
+    console.log(e);
     if (e.originalEvent.wheelDelta > 0) {
       // 휠을 올렸을 때
       $header.removeClass('hide');
