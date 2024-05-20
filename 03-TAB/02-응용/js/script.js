@@ -3,10 +3,24 @@ $(function () {
   const tabMenu = $('.tab-menu > li');
   const tabContent = $('.tab-con-item');
   const body = $('body');
+  const tabTitle = $('.tab-con-item > h2');
 
-  // 배경이미지를 배열에 저장
-  const bgArr = ['blackpink01.jpg', 'blackpink02.jpg', 'blackpink03.jpg'];
-  // console.log(bgArr[0]);
+  // 배경이미지와 텍스트 정보를 배열에 저장
+  const bgArr = [
+    {
+      bg: 'blackpink01.jpg',
+      title: '지수가 제일 예뻐요',
+    },
+    {
+      bg: 'blackpink02.jpg',
+      title: '지수가 정말 예뻐요',
+    },
+    {
+      bg: 'blackpink03.jpg',
+      title: '지수는 언제나 제일 예뻐요',
+    },
+  ];
+  console.log(bgArr[1].title);
 
   // 초기세팅
   tabAction(0);
@@ -26,6 +40,14 @@ $(function () {
     tabContent.hide().eq(index).show();
 
     // 배경 이미지 변경
-    body.css('background', `url(./img/${bgArr[index]}) no-repeat 0 0 / cover`);
+    body.css('background', `url(./img/${bgArr[index].bg}) no-repeat 0 0 / cover`);
+
+    // 타이틀 변경
+    // tabTitle.text(bgArr[index].title);
+    // 변수를 또 따로 잡는 것(tabTitle) 보다 find(tabContent.find('h2'))로 자손을 잡아주는 것이 더 편함
+    tabContent.find('h2').text(bgArr[index].title);
+
+    // $('.tab-con-item > h2').text(bgArr[index].title);
+    // $('.tab-con-item > h2').text('zz');
   }
 });
