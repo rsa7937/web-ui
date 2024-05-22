@@ -14,6 +14,19 @@ $(function () {
     'https://img.wkorea.com/w/2021/11/style_6189ebb2d3726.jpg',
     'http://image.yes24.com/images/chyes24/froala/0/48248/58165.jpg',
   ];
+  // 여러 대상에 동일한 동작을 적용하고자할 때 사용
+  // javascript forEach()
+  // imgArr.forEach(function (item, index) {
+  //   console.log(item, index);
+  // });
+
+  // jQuery each()
+  // 배열에 사용하는 것이 아니라 유사배열에 사용함
+  $selectVideo.each(function (index, item) {
+    // console.log(index, item);
+    $(item).css('background', `url(${imgArr[index]}) no-repeat 0 0 / cover`);
+  });
+
   // console.log(imgArr[2], $selectVideo);
   // $body.css('background', `url(${imgArr[2]}) no-repeat 0 0 / cover`);
 
