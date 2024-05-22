@@ -25,8 +25,18 @@ a:hover {
 body {
   font: 700 1rem/1.5 'Pretendard', sans-serif;
 }
-body.active {
+/* body.active {
   backdrop-filter: blur(10px);
+} */
+body::before {
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(7px);
 }
 .dim {
   position: fixed;
@@ -47,6 +57,7 @@ body.active {
   /* height: 768px; */
   aspect-ratio: 16/9;
   border: 10px solid #000;
+  z-index: 3;
 
   /* jQuery : addClass/removeClass 사용 예정 */
   opacity: 0;
@@ -95,12 +106,14 @@ body.active {
 .video-list {
   display: flex;
   gap: 20px;
+  z-index: 1;
 }
 .video-list li {
   border: 5px solid #000;
   padding: 50px;
   cursor: pointer;
   background: #fff;
+
   width: 350px;
   height: 250px;
   display: flex;
