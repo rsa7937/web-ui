@@ -24,6 +24,7 @@ a:hover {
 
 body {
   font: 1em 'Pretendard', sans-serif;
+  overflow: hidden;
 }
 
 #header {
@@ -113,7 +114,7 @@ main > section.section4 {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 16px;
+  gap: 12px;
 }
 
 .indicator button {
@@ -123,6 +124,7 @@ main > section.section4 {
   border-radius: 20px;
   background: #fff;
   cursor: pointer;
+  border: 2px solid #000;
 
   transition: 0.4s;
 }
@@ -130,6 +132,7 @@ main > section.section4 {
 .indicator button.on {
   background: #000;
   height: 24px;
+  /* border: 2px solid #000; */
 }
 
 .indicator button b {
