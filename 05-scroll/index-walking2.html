@@ -110,7 +110,14 @@
       $window.on('resize', function () {
         //  변경된 크기값을 받아오자
         getHeight();
-        // 강제로 스크롤 이벤트를 발생
+
+        // trigger - 강제로 스크롤 이벤트를 발생
+        // 진짜로 스크롤이 일어나는 것은 아니고 
+        // scroll 이벤트에 걸어둔 액션들을 실행하기 위해서 사용
+        // window창의 resize가 일어나면 scroll 이벤트를 trigger해줘서 scroll할 때 발생하는 $girl, $puppy의 css 변화를 그대로 받아와 적용시킴
+
+        // 복수의 이벤트 효과가 발생해야하는 상황
+        // 한 이벤트에 정의된 액션이 다른 이벤트를 수행할 때도 일어나야함
         $window.trigger('scroll');
       })
     })
