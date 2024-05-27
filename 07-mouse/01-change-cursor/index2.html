@@ -41,12 +41,52 @@
       pointer-events: none;
       user-select: none;
 
+      z-index: 1;
+
     }
 
     .cursor.click {
       background-position: -32px 0;
     }
+
+    /* 따라다니는 친구 */
+    .spark {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      transform: translate(calc(-50% + 10px), calc(-50% - 2px));
+      /* transform: translate(calc(-50% + 6px), calc(-50% - 4px)); */
+      /* top값과 left 값에는 pageX, Y에 대한 위치값이 들어가야하기 때문에  transform으로 위치 미세 조정 */
+
+      width: 10px;
+      height: 10px;
+      background: #000;
+      border-radius: 50%;
+      z-index: 0;
+
+      /* 마우스에 걸리적 거리지 말 것! */
+      pointer-events: none;
+      user-select: none;
+
+      transition: 0.4s;
+    }
+
+    .spark.active {
+      animation: spark-ani 1s;
+    }
+
+    @keyframes spark-ani {
+      0% {}
+
+      100% {
+        width: 70px;
+        height: 70px;
+        opacity: 0;
+      }
+    }
   </style>
+
   <script src="./js/jquery-3.3.1.min.js"></script>
   <script>
     $(function () {
@@ -54,6 +94,7 @@
       // 대상을 변수에 저장
       const $window = $(window);
       const $cursor = $('.cursor');
+      const $spark = $('.spark');
 
       // 브라우저 창에서 마우스가 움직일 때
       $window.on('mousemove', function (e) {
@@ -64,18 +105,27 @@
         const mouseY = e.pageY;
 
         // 가짜 마우스의 left, top값으로 적용
-        $cursor.css({ left: mouseX, top: mouseY })
+        $cursor.add($spark).css({ left: mouseX, top: mouseY })
       })
 
       // event : mousedown, mouseup 
       $window.on('mousedown', function () {
-        $cursor.addClass('click')
-        // $cursor.css('background', 'url(./images/hover-2.png) no-repeat -32px 0')
+        $cursor.addClass('click');
       })
       $window.on('mouseup', function () {
-        $cursor.removeClass('click')
-        // $cursor.css('background', 'url(./images/hover-2.png) no-repeat 0 0')
+        $cursor.removeClass('click');
+        // $spark.removeClass('active');
       })
+
+      // 화면을 클릭하면 spark에 active 클래스
+      $window.on('click', function () {
+        $spark.addClass('active');
+
+        setTimeout(function () {
+          $spark.removeClass('active');
+        }, 1000)
+      })
+
     })
   </script>
 
@@ -83,6 +133,7 @@
 
 <body>
   <div class="cursor"></div>
+  <div class="spark"></div>
 
   <div class="wrap">
     <p>
