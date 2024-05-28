@@ -98,6 +98,9 @@
       // 기본 속도
       const speed = 0.009;
 
+      // 애니메이션 정의
+      let raf;
+
       //  마우스가 움직이면 좌표의 시작점을 화면의 정중앙으로 세팅
       // 1. 함수로 정의
       function getOffset() {
@@ -125,7 +128,7 @@
           transform: `translate(${mx * 0.5}px, ${-my * 0.5}px)`,
           filter: `blur(${mx * 0.5}px)`
         });
-        requestAnimationFrame(moving)
+        raf = requestAnimationFrame(moving)
       }
 
       // 3. 1, 2번 실행하는 함수
@@ -137,6 +140,21 @@
       }
       // 3번 함수 실행
       initAnimation();
+
+      // scroll-area의 위치값 구하기
+      const targetPos = $('.scroll-area').offset().top;
+      console.log(targetPos);
+
+      // 스크롤이 발생하면
+      $window.on('scroll', function () {
+        const scrollTop = $(this).scrollTop();
+
+        // 스크롤 값이 콘텐츠 영역을 넘어서면 애니메이션 중지
+        if (scrollTop >= targetPos) cancelAnimationFrame(raf);
+        // 다시 상단으로 이동하면 움직임 실행
+        if (scrollTop === 0) initAnimation();
+
+      })
     })
   </script>
 </head>
