@@ -62,6 +62,7 @@
         getOffet();
         moving();
       }
+      
       function getOffet() {
         $window.on('mousemove', function (e) {
           x = e.pageX
@@ -72,6 +73,7 @@
           my = ($window.outerHeight() / 2 - y) * speed;
         });
       }
+
       function moving() {
         $pic.css({
           transform: `translate(${mx}px, ${my}px)`
