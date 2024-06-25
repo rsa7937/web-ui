@@ -44,10 +44,14 @@
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
     $(function () {
       const $window = $(window);
       const $body = $('body')
+
       const $progress = $('.progress')
       const $progressBar = $('.progress-bar')
       const $progressText = $('.progress-text')
@@ -68,42 +72,52 @@
       // 현재 로딩된 이미지 수
       let imgLoaded = 0;
 
+      // 부드러운 진행률을 위한 변수
+      let current = 0;
+
       // 이미지를 로딩할 때마다 imgLoaded를 증가
       imgLoad.on('progress', function () {
         imgLoaded++;
         console.log(imgLoaded)
-        // let progressPercent = `${imgLoaded / imgTotal * 100}%`
-        // console.log(progressPercent)
-        updateProgress();
 
-      }).on('done', function () {
-        setTimeout(function () {
-          $progress.fadeOut();
-        }, 1000)
+        // console.log(progressPercent)
+        // updateProgress();
+
       })
 
+      // .on('done', function () {
+      //   setTimeout(function () {
+      //     $progress.fadeOut();
+      //   }, 1000)
+      // })
       // 진행 상황을 파악해서 할 일을 하는 함수
       // updateProgress()
       function updateProgress() {
         // 계속 반복되어서 계산이 되어야함
         let percent = `${(imgLoaded / imgTotal) * 100}`
 
+        // 부드러운 갱신
+        current += (percent - current) * 0.05
+
         // 진행 정보를 업데이트
         // $progressText.html(percent);
-        $progressText.html(Math.floor(percent) + '%');
-        $progressBar.css('width', Math.floor(percent) + '%');
+        $progressText.html(Math.floor(current) + '%');
+        $progressBar.css('width', Math.floor(current) + '%');
 
         // 로딩이 완료되었을 때
-        // if (percent >= 100) {
-        //   clearInterval(progressTimer)
+        if (current >= 100) {
+          clearInterval(progressTimer)
 
-        //   $progress.fadeOut()
-        // }
-
+          const TL = gsap.timeline();
+          TL.to($progressBar, { xPercent: 100, duration: 1, ease: 'power4.inOut' })
+          TL.to($progressText, { x: 10, autoAlpha: 0, duration: 1, ease: 'power4.inOut' }, '-=0.8')
+          TL.to($progress, { autoAlpha: 0, duration: 1, ease: 'power4.inOut' })
+        }
+        // console.log(current)
+        if (current >= 99.9) current = 100;
       }
       // 1초에 60번 반복
-      // const progressTimer = setInterval(updateProgress, 1000 / 60)
-
+      const progressTimer = setInterval(updateProgress, 1000 / 60)
     })
   </script>
 </head>
