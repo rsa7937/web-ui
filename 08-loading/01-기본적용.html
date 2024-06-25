@@ -39,28 +39,38 @@
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+  <script src="/loading.js"></script>
   <script>
-    $(function () {
-      const $window = $(window);
-      const $body = $('body');
-      const $loading = $('.loading')
+    // $(function () {
+    // const $window = $(window);
+    // const $body = $('body');
 
-      $window.on('load', function () {
-        // 로딩 완료 후 1초 뒤에 사라지게 
-        setTimeout(function () {
-          $loading.fadeOut();
-        }, 1000);
-      })
-    })
+    // // const가 아니라 let으로 만들어 변할 가능성 부여
+    // let $loading = `<div class="loading">
+    //                     <p>loading...</p>
+    //                   </div>`
+
+    // // loading 구조 삽입
+    // // body의 막내에 삽입
+    // $body.append($loading)
+
+    // // jQuery 객체로 만들기
+    // $loading = $('.loading')
+
+    // // $body.find('img').hide();
+    // $window.on('load', function () {
+    //   // 로딩 완료 후 1초 뒤에 사라지게
+    //   setTimeout(function () {
+    //     $loading.fadeOut();
+    //     // $body.find('img').fadeIn();
+    //     $('html').scrollTop(0)
+    //   }, 1000);
+    // })
+    // })
   </script>
 </head>
 
 <body>
-  <div class="loading">
-    <p>loading...</p>
-  </div>
-
   <img src="https://media.timeout.com/images/105918414/image.jpg" alt="" />
   <img src="https://hips.hearstapps.com/hmg-prod/images/gettyimages-1136588786.jpg" alt="" />
   <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Blackpink_Coachella_2023_02_%28cropped%29.jpg" alt="" />
